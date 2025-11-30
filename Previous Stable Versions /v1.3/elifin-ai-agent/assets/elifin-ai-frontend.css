@@ -1,0 +1,173 @@
+/* ------------------------------------
+EliFin AI Chat Widget Custom Styles
+------------------------------------ */
+
+/* Root variables for customization (Defaults are the Indigo/Light theme colors) */
+#chat-widget-container {
+    /* These variables are set dynamically by the JS script based on Admin settings */
+    --cbfa-primary: #4f46e5;
+    --cbfa-secondary: #6366f1;
+    
+    --cbfa-agent-name-text: #ffffff;
+    --cbfa-header-text: #ffffff;
+    
+    --cbfa-agent-bubble: #e5e7eb;
+    --cbfa-user-bubble: #6366f1;
+    
+    --cbfa-agent-bubble-text: #1f2937;
+    --cbfa-user-bubble-text: #ffffff;
+
+    --cbfa-font-family: 'Inter', sans-serif;
+    --cbfa-base-font-size: 14px;
+    
+    /* Apply base font and size to the container */
+    font-family: var(--cbfa-font-family);
+    font-size: var(--cbfa-base-font-size);
+}
+
+/* All elements within the container inherit font and standard box model */
+#chat-widget-container, #chat-widget-container * {
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Custom scrollbar for chat messages */
+#chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+#chat-messages::-webkit-scrollbar-thumb {
+    background-color: #d1d5db; /* Tailwind gray-300 */
+    border-radius: 3px;
+}
+#chat-messages::-webkit-scrollbar-track {
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+}
+
+/* Elegant Typing Animation (Bounce/Fade) */
+.typing-dots {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 12px;
+    padding-top: 2px;
+}
+.typing-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: 0 2px;
+    border-radius: 50%;
+    background-color: var(--cbfa-primary); /* Primary color for dots */
+    animation: bounce 1.2s infinite ease-in-out both;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+.typing-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ------------------------------------
+Agent Avatar and Live Indicator Styles
+------------------------------------ */
+
+.cbfa-live-indicator {
+    /* Ring style using box-shadow for a clean look */
+    box-shadow: 0 0 0 2px #f9fafb; /* gray-50 - Widget Background */
+    /* Add a subtle animation to simulate "breathing" or being live */
+    animation: livePulse 2s infinite ease-out;
+}
+
+@keyframes livePulse {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+/* --- Core Widget Styling (Aura Theme) --- */
+
+#chat-window {
+    /* Base styling for the rounded chat container */
+    background-color: #f9fafb !important; 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05); 
+    border-radius: 1.25rem !important; 
+}
+
+#chat-window .chat-header {
+    /* Gradient header using custom variables */
+    background: linear-gradient(135deg, var(--cbfa-primary) 0%, var(--cbfa-secondary) 100%); 
+}
+
+/* Agent Name Text Color (NEW FIX) */
+#agent-name-display {
+    color: var(--cbfa-agent-name-text) !important;
+}
+
+/* Header Icons/General Text Color (Restart, Close) */
+.chat-header button, .chat-header h3 {
+    color: var(--cbfa-header-text) !important;
+}
+
+
+/* Input area wrapper styling (the rounded border around input/emoji/send) */
+#chat-window .flex.items-center.rounded-3xl {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+#chat-input {
+    /* Remove all default input styling conflicts */
+    background-color: transparent !important;
+    border: none !important; 
+    color: #1f2937 !important; /* dark text for input text */
+    /* Fix font size inheritance */
+    font-size: var(--cbfa-base-font-size) !important; 
+}
+
+/* User Message Bubble */
+.flex.justify-end > div {
+    background-color: var(--cbfa-user-bubble) !important;
+    color: var(--cbfa-user-bubble-text) !important; 
+}
+
+/* Assistant Message Bubble */
+.flex.justify-start > div {
+    background-color: var(--cbfa-agent-bubble) !important; 
+    color: var(--cbfa-agent-bubble-text) !important;
+}
+
+/* Input area background */
+#chat-window > div:last-child {
+    background-color: #f9fafb !important;
+    border-top: 1px solid #e5e7eb !important;
+}
+
+/* Send and Emoji Button Icons */
+#send-button, #emoji-button {
+    /* Ensure icon color is customizable via primary color */
+    color: var(--cbfa-primary) !important;
+    background-color: transparent !important;
+}
+
+/* Chat Toggle Button (Floating Button) */
+#chat-toggle-button {
+    background-color: var(--cbfa-primary) !important;
+}
+
+/* Agent Button Style */
+.cbfa-button-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}

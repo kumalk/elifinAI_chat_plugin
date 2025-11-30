@@ -1,0 +1,42 @@
+.wrap h2.nav-tab-wrapper {
+    padding-bottom: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.wrap h2.nav-tab-wrapper a.nav-tab {
+    padding: 8px 15px;
+    font-size: 15px;
+    line-height: 20px;
+    color: #555;
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: -1px;
+    margin-bottom: -1px;
+}
+
+.wrap h2.nav-tab-wrapper a.nav-tab-active,
+.wrap h2.nav-tab-wrapper a.nav-tab:hover {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    color: #000;
+}
+
+/* Ensure the color picker field is visible */
+.cbfa-color-field {
+    width: 100px; /* Adjust width for better display */
+}
+
+/* Styling for the About tab content */
+.card {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    padding: 20px;
+    max-width: 800px;
+    margin-top: 20px;
+}
