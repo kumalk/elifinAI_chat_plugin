@@ -1,0 +1,305 @@
+/* ------------------------------------
+EliFin AI Chat Widget Custom Styles
+------------------------------------ */
+
+/* Root variables for customization (Defaults are the Indigo/Light theme colors) */
+#chat-widget-container {
+    /* These variables are set dynamically by the JS script based on Admin settings */
+    --cbfa-primary: #4f46e5;
+    --cbfa-secondary: #6366f1;
+    
+    --cbfa-agent-name-text: #ffffff;
+    --cbfa-header-text: #ffffff;
+    
+    --cbfa-agent-bubble: #e5e7eb;
+    --cbfa-user-bubble: #6366f1;
+    
+    --cbfa-agent-bubble-text: #1f2937;
+    --cbfa-user-bubble-text: #ffffff;
+
+    --cbfa-font-family: 'Inter', sans-serif;
+    --cbfa-base-font-size: 14px;
+    
+    /* NEW: Variables for Link Card Styling */
+    /* Light version of secondary color (using a light blue/indigo tint) */
+    --cbfa-secondary-light: #e5e7eb; 
+    --cbfa-secondary-hover: #cbccd0; 
+    
+    /* Apply base font and size to the container */
+    font-family: var(--cbfa-font-family);
+    font-size: var(--cbfa-base-font-size);
+}
+
+/* All elements within the container inherit font and standard box model */
+#chat-widget-container, #chat-widget-container * {
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Custom scrollbar for chat messages */
+#chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+#chat-messages::-webkit-scrollbar-thumb {
+    background-color: #d1d5db; /* Tailwind gray-300 */
+    border-radius: 3px;
+}
+#chat-messages::-webkit-scrollbar-track {
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+}
+
+/* Elegant Typing Animation (Bounce/Fade) */
+.typing-dots {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 12px;
+    padding-top: 2px;
+}
+.typing-dots span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: 0 2px;
+    border-radius: 50%;
+    background-color: var(--cbfa-primary); /* Primary color for dots */
+    animation: bounce 1.2s infinite ease-in-out both;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+.typing-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ------------------------------------
+Agent Avatar and Live Indicator Styles
+------------------------------------ */
+
+.cbfa-live-indicator {
+    /* Ring style using box-shadow for a clean look */
+    box-shadow: 0 0 0 2px #f9fafb; /* gray-50 - Widget Background */
+    /* Add a subtle animation to simulate "breathing" or being live */
+    animation: livePulse 2s infinite ease-out;
+}
+
+@keyframes livePulse {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.8; }
+}
+
+/* --- Core Widget Styling (Aura Theme) --- */
+
+#chat-window {
+    /* Base styling for the rounded chat container */
+    background-color: #f9fafb !important; 
+    /* NEW: Softer Shadow (Replaces original shadow-2xl) */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    border-radius: 1.25rem !important; 
+}
+
+#chat-window .chat-header {
+    /* FIX: Gradient from secondary (top) to primary (bottom) */
+    background: linear-gradient(to bottom, var(--cbfa-secondary) 0%, var(--cbfa-primary) 100%); 
+}
+
+/* Agent Name Text Color (NEW FIX) */
+#agent-name-display {
+    color: var(--cbfa-agent-name-text) !important;
+}
+
+/* Header Icons/General Text Color (Restart, Close) */
+.chat-header button, .chat-header h3 {
+    color: var(--cbfa-header-text) !important;
+}
+
+
+/* Input area wrapper styling (the rounded border around input/emoji/send) */
+#chat-window .flex.items-center.rounded-3xl {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+#chat-input {
+    /* Remove all default input styling conflicts */
+    background-color: transparent !important;
+    border: none !important; 
+    color: #1f2937 !important; /* dark text for input text */
+    /* Fix font size inheritance */
+    font-size: var(--cbfa-base-font-size) !important; 
+}
+
+/* User Message Bubble */
+.flex.justify-end > div {
+    background-color: var(--cbfa-user-bubble) !important;
+    color: var(--cbfa-user-bubble-text) !important; 
+    /* NEW: Softer Shadow (Requirement 4) */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
+}
+
+/* Assistant Message Bubble */
+.flex.justify-start > div {
+    background-color: var(--cbfa-agent-bubble) !important; 
+    color: var(--cbfa-agent-bubble-text) !important;
+    /* NEW: Softer Shadow (Requirement 4) */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); 
+}
+
+/* Input area background */
+#chat-window > div:last-child {
+    background-color: #f9fafb !important;
+    border-top: 1px solid #e5e7eb !important;
+}
+
+/* Send and Emoji Button Icons */
+#send-button, #emoji-button {
+    /* Ensure icon color is customizable via primary color */
+    color: var(--cbfa-primary) !important;
+    background-color: transparent !important;
+}
+
+/* Chat Toggle Button (Floating Button) */
+#chat-toggle-button {
+    background-color: var(--cbfa-primary) !important;
+    /* FIX 1: Ensure the button is round (This is the critical fix) */
+    border-radius: 50% !important; 
+    /* Also ensure padding/margins don't stretch it */
+    padding: 0 !important;
+    margin: 0 !important;
+    /* FIX 2: Ensure any square content corners are hidden */
+    overflow: hidden !important; 
+}
+
+/* Agent Button Style */
+.cbfa-button-image {
+    /* FIX 2: Ensure the image inside the button is contained/covered and also round */
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+/* Style for images filling the entire button (Avatar style) */
+.cbfa-fill-image {
+    object-fit: cover;
+}
+
+/* ------------------------------------
+Link Card Styling (Requirement 3)
+------------------------------------ */
+.cbfa-link-card-container {
+    /* Ensures the card is separated from regular text in the bubble */
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.cbfa-link-card {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px; 
+    /* Use the defined light secondary color for background */
+    background-color: var(--cbfa-secondary-light); 
+    /* Remove shadow for elegance, use a subtle border */
+    border: 1px solid var(--cbfa-secondary-hover);
+    cursor: pointer;
+    text-decoration: none !important; /* Ensure the link itself is not underlined */
+    transition: background-color 0.15s ease;
+    width: 100%; 
+    box-sizing: border-box;
+    /* Ensure link card doesn't exceed bubble width */
+    max-width: 100%; 
+}
+
+.cbfa-link-card:hover {
+    background-color: var(--cbfa-secondary-hover);
+}
+
+.cbfa-link-card-icon {
+    font-size: 16px; /* Slightly larger icon */
+    margin-right: 8px;
+    /* Link text and icon use primary color for contrast */
+    color: var(--cbfa-primary); 
+    line-height: 1;
+}
+
+.cbfa-link-card-text {
+    font-size: 13px;
+    color: var(--cbfa-primary); 
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+/* ------------------------------------
+Quick Links Styling (New Feature)
+------------------------------------ */
+.cbfa-quick-links-wrapper {
+    padding: 8px 0; /* Vertical spacing */
+    /* background-color: var(--cbfa-agent-bubble); Use a light background for contrast */
+    /* border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb; */
+    margin-top: -1px; /* Overlap with input area border */
+    position: relative;
+    z-index: 10;
+}
+
+.cbfa-quick-links-container {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling/swiping */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+    padding: 0 16px; /* Padding for the sides */
+    gap: 8px; /* Space between buttons */
+}
+
+/* Hide scrollbar on supported browsers */
+.cbfa-quick-links-container::-webkit-scrollbar {
+    display: none;
+    height: 0;
+}
+.cbfa-quick-links-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.cbfa-quick-link-button {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+    padding: 8px 12px;
+    border-radius: 10px; /* Pill shape */
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    
+    /* Elegant light colors matching the theme */
+    background-color: var(--cbfa-secondary-light); 
+    color: var(--cbfa-primary); 
+    border: 1px solid var(--cbfa-secondary-hover);
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s;
+    text-decoration: none; /* Ensure link appearance is clean */
+
+    /* Ensure text alignment */
+    text-align: center;
+}
+
+.cbfa-quick-link-button:hover {
+    background-color: var(--cbfa-secondary-hover);
+}
+
+.cbfa-quick-link-button:active {
+    transform: scale(0.98);
+}
